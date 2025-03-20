@@ -18,7 +18,9 @@ services:
       - database:/var/lib/mysql
     restart: unless-stopped
     networks:
-      - apgdb
+      apdb:
+        aliases:
+          - mysqlapg
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin
