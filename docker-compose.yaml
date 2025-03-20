@@ -1,0 +1,44 @@
+services:
+  mysql:
+    build: 
+      context: .
+      dockerfile: DockerfileMysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - database:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - apgdb
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   environment:
+  #     PMA_HOST: apgdb
+  #     PMA_PORT: 3306
+  #     MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     - mysql
+  #   restart: unless-stopped
+  #   networks:
+  #     - apg
+    
+
+networks:
+  apgdb:
+    driver: bridge
+
+volumes:
+  database:
+    
