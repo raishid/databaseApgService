@@ -34,7 +34,7 @@ services:
   #     - mysql
   #   restart: unless-stopped
   #   networks:
-  #     - apg
+  #     - apgdb
     
 
 networks:
