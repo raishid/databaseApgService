@@ -21,6 +21,8 @@ services:
       apgdb:
         aliases:
           - mysqlapg
+    ports:
+      - "${MYSQL_PORT}:3306"
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin
